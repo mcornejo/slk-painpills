@@ -1,0 +1,147 @@
+{
+  "aggs": {
+    "2": {
+      "date_histogram": {
+        "field": "transactionDate",
+        "calendar_interval": "1M",
+        "time_zone": "Europe/Paris",
+        "min_doc_count": 1
+      }
+    }
+  },
+  "size": 0,
+  "_source": {
+    "excludes": []
+  },
+  "stored_fields": [
+    "*"
+  ],
+  "script_fields": {},
+  "docvalue_fields": [
+    {
+      "field": "transactionDate",
+      "format": "date_time"
+    }
+  ],
+  "query": {
+    "bool": {
+      "must": [],
+      "filter": [
+        {
+          "match_all": {}
+        },
+        {
+          "match_phrase": {
+            "drugName": {
+              "query": "HYDROCODONE"
+            }
+          }
+        },
+        {
+          "match_phrase": {
+            "buyerCity": {
+              "query": "BROOKLYN"
+            }
+          }
+        },
+        {
+          "range": {
+            "transactionDate": {
+              "format": "strict_date_optional_time",
+              "gte": "2005-12-31T23:00:00.000Z",
+              "lte": "2006-12-31T23:00:00.000Z"
+            }
+          }
+        }
+      ],
+      "should": [],
+      "must_not": []
+    }
+  }
+}
+
+
+
+response:
+{
+  "took": 23,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": 52,
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "2": {
+      "buckets": [
+        {
+          "key_as_string": "01012006",
+          "key": 1136070000000,
+          "doc_count": 5
+        },
+        {
+          "key_as_string": "02012006",
+          "key": 1138748400000,
+          "doc_count": 7
+        },
+        {
+          "key_as_string": "03012006",
+          "key": 1141167600000,
+          "doc_count": 2
+        },
+        {
+          "key_as_string": "04012006",
+          "key": 1143842400000,
+          "doc_count": 5
+        },
+        {
+          "key_as_string": "05012006",
+          "key": 1146434400000,
+          "doc_count": 6
+        },
+        {
+          "key_as_string": "06012006",
+          "key": 1149112800000,
+          "doc_count": 5
+        },
+        {
+          "key_as_string": "07012006",
+          "key": 1151704800000,
+          "doc_count": 3
+        },
+        {
+          "key_as_string": "08012006",
+          "key": 1154383200000,
+          "doc_count": 1
+        },
+        {
+          "key_as_string": "09012006",
+          "key": 1157061600000,
+          "doc_count": 3
+        },
+        {
+          "key_as_string": "10012006",
+          "key": 1159653600000,
+          "doc_count": 8
+        },
+        {
+          "key_as_string": "11012006",
+          "key": 1162335600000,
+          "doc_count": 1
+        },
+        {
+          "key_as_string": "12012006",
+          "key": 1164927600000,
+          "doc_count": 6
+        }
+      ]
+    }
+  },
+  "status": 200
+}
