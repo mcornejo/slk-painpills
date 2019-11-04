@@ -1,9 +1,9 @@
 # Ingestion Code
-The code provided is to ingest data from Kaggle's [Pain Pills dataset](https://www.kaggle.com/paultimothymooney/pain-pills-in-the-usa) to Elasticsearch. 
+The code provided is to ingest data from Kaggle's [Pain Pills dataset](https://www.kaggle.com/paultimothymooney/pain-pills-in-the-usa) to elasticsearch. 
 
-It takes as input a TSV (Tab-Separated Value), parses each line to an Pain Pills object. After it is send to elastic API in json format.
+It takes as input a TSV (Tab-Separated Value), parses each line as a Pain Pills object, then it is sent to the elasticsearch API in json format.
 
-In order to execute the code, a elasticsearch API should be up listening in localhost:9200.
+In order to execute the code, an elasticsearch API should be up listening on localhost:9200 (to run the server, use the docker-compose util provided in the `0.pre-processing` folder).
 
 ## Code
 The code is written in Scala 2.12 using Akka 2.5.26. Akka is a framework for building 
