@@ -38,7 +38,7 @@ if we want to access the data depending on the hour it was ingested to the data 
 - `/drug_name/transaction_year/transaction_month/transaction_day`: Useful for high-intense access where
 the ingestion information is not needed (lost) but transaction information is important.
 
-Due to the nature of Pain Pills Dataset and the queries we would most likely want to do on it in real-life, the best partitioning would be `/drug_name/transaction_year/transaction_month/transaction_day`  and discarding the information of ingestion. This allows a user to easily query the data using the drug name as a primary filter, and it permits asking for the details of the transactions per day.
+Due to the nature of Pain Pills Dataset and the queries we would most likely want to do on it in real-life, the best partitioning would be `/drug_name/transaction_year/transaction_month/transaction_day` discarding the information of ingestion. This allows a user to easily query the data using the drug name as a primary filter, and it permits asking for the details of the transactions per day.
 
 ### Discussion 
 The partitioning is an important topic to discuss within the team and business/analysts/data scientists 
