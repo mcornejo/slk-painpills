@@ -24,8 +24,7 @@ The _raw_ data might be in different formats, CSV, excel, JSON, TSV, binary, etc
 ## DWH Processing
 Once the data has been ingested in the infrastructure, a first job should run to put into in the data warehouse. Due to the nature of the Pain Pills Dataset, the data should be stored in a columnar format like Parquet or ORC. This allows fast search and retrieval from different sources. 
 
-Keeping a clean data warehouse is very important. By choosing a good partitioning, it can make the task of creating new data marts incredibly easy or difficult this is to be discussed within the team and business/analysts/data scientists. A good partitioning can facilitate the data exploration using tools like Athena or Presto and it can
-help to find where the data has more value while keeping costs low.
+Keeping a clean data warehouse is very important. By choosing a good partitioning, it can make the task of creating new data marts incredibly easy or difficult. This is to be discussed within the team and in collaboration with members of business/analysts/data scientists. A good partitioning can facilitate the data exploration using tools like Athena or Presto and it can help to find where the data has most value while keeping costs low.
 
 
 ### Data Partitioning
@@ -44,12 +43,10 @@ Due to the nature of Pain Pills Dataset and the queries we would most likely wan
 
 ### Discussion 
 
-In this particular case, if the sole use case is to compute aggregation based on drug_name and 
-transaction date, a better partitioning would be 
-`/ingestion_year/ingestion_month/ingestion_day/ingestion_hour/drug_name/`. ***That partitioning allows 
-the computation of aggregations faster by minimising the hit/access and reading only a few columns, but 
-it impractical due to it does not give any improvements (it requires a full scan) on a real-life 
-sceneario.*** 
+In this particular case, if the sole use case is to compute aggregations based on drug_name and 
+transaction date, the partitioning would be `/ingestion_year/ingestion_month/ingestion_day/ingestion_hour/drug_name/`. 
+***That partitioning allows the fast computation of aggregations by minimising the hit/access and reading only a few columns, but in real-life
+it is impractical because it does not facilitate the access of the data (e.g. it will requires a full scan to get transaction_day).*** 
 
 
 ## Access to the data
