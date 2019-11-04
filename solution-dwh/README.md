@@ -145,3 +145,5 @@ This allows a better performance of elasticsearch, lower costs and better user e
 The following graphs are a sample of possible visualisations. On the top row we present some aggregations on Oxycodone and on the bottom row Hydrocodone. From left to right: Count of top 20 cities, Daily count and monthly count. In the folder kibana it is possible to find the export of the dashboard to easily import it in kibana.
 
 ![Monthy count of ](images/img1.png "Kibana screenshot")
+
+To replicate this dashboard, first run a elasticsearch and kibana instance (like the docker-compose file in the solution-elk folder) and execute the `output_to_elastic.sh`.
