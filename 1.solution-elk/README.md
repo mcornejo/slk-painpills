@@ -2,22 +2,23 @@
 
 [Elasticsearch](https://www.elastic.co/) is a search engine based on Apache Lucene.
 It can be used to search all kinds of documents with a near real-time search.
-Elasticsearch is particularly good to perform queries on aggregated data. 
+Elasticsearch is particularly good to perform search queries and aggregating data.
 
-The company behind Elastic also created a data visualization called Kibana, that comes very handy when to perform queries directly to elasticsearch. 
+The company behind Elastic also created a data visualization called Kibana, that comes in very handy when to perform queries directly to elasticsearch. Both have a HTTP API
+that allows a user to query easily.
 
-The idea behind this simple version is to demonstrate the power of elastic+kibana
+The idea behind this simple elasticsearch-only solution is to demonstrate the power of elasticsearch+kibana
 to perform aggregations and visualise them. One of the strong points is that, 
-if the volume of the data is "small enough", then using elastic+kibana is an excellent
+if the volume of the data is "small enough", then using elasticsearch+kibana is an excellent
 backend service for visualisation and analytics. It just requires an index and all the
 ingestion and query is handled effortlessly. No need to add partitions, pre-configure aggregations, modify data, etc. This is an excellent approach to explore the data and to decide what aggregations and visualisations to do.
 
 ## Hands-on
-A simple solution to the aggregation problem is to ingest every line directly to 
-Elasticsearch. We can use both opensource versions of elasticsearch and kibana.
+A simple solution is to ingest every line directly to 
+elasticsearch. We can use opensource versions of both elasticsearch and kibana.
 
 To run a dockerized (testing/development) version of elasticsearch, I provide a 
-docker-compose file.
+docker-compose file that creates a elasticsearch and kibana service locally.
 ```bash
 $ docker-compose up
 ```
@@ -27,8 +28,8 @@ that by running
 ```bash
 $ ./push_index.sh
 ```
-The bash script deletes the index in case of existence, it creates a new one 
-and finally, it pushes a new mapping accordingly to the schema defined.
+The bash script deletes any pre-existant index with the same name, it creates a new one 
+and it pushes a new mapping accordingly to the defined schema. An example of the reponse of elasticsearch after running the `push_index.sh` script is the following (one json per step):
 ```json
 {
   "acknowledged" : true
@@ -43,11 +44,11 @@ and finally, it pushes a new mapping accordingly to the schema defined.
 }
 ```
 
-Finally, we can push some data to elasticsearch using the app provided.
-To see details of the app cf. the README.md on the slk-ingestion folder.
+Now, we can push some data to elasticsearch using the provided app written in Scala using Akka. To see details of the app cf. the README.md on the `code` folder.
+
 ```bash
-$ cd slk-ingestion
-$ sbt run
+$ cd code
+$ sbt compile run
 ```
 
 ## Results
@@ -57,7 +58,7 @@ I simulated this solution using a small subset of 656,287 rows of
 656k rows are stored by elastic in 217 MB. (For full stats on elastic test environment cf. 
 elastic-stats.json).
 
-The following query is the count the number of HYDROCODONE sold per month during 2006, and it was computed in 99ms.
+The following query retrieves the count of HYDROCODONE sold per month during 2006, and it was computed in 99ms.
 ```json
 {
   "aggs": {
@@ -115,7 +116,7 @@ The following query is the count the number of HYDROCODONE sold per month during
 }
 ```
 
-The respnse is: 
+The response for the query presented above is: 
 ```json
 {
   "took": 99,
@@ -201,7 +202,8 @@ The respnse is:
 }
 ```
 
-The queries are similar, just modifying the parameters. I will skip the json queries, and I will show the graphs and response times for different queries.
+We tested the API by doing two more queries, which are quite similar to the previous json. 
+Below are the graphs and response times for the three different queries.
 
 A monthly count of Hydrocodone during 2007.
 ![Monthy count of HYDROCODONE](images/img1.png "Kibana screenshot")
