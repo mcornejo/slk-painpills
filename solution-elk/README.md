@@ -2,18 +2,15 @@
 
 [Elasticsearch](https://www.elastic.co/) is a search engine based on Apache Lucene.
 It can be used to search all kinds of documents with a near real-time search.
-Elasticsearch is particulary good to perform queries on aggregated data. 
+Elasticsearch is particularly good to perform queries on aggregated data. 
 
-The company behind Elastic also created a data visualizator called Kibana that 
-comes very handy when to perform queries directly to elasticsearch. 
+The company behind Elastic also created a data visualization called Kibana, that comes very handy when to perform queries directly to elasticsearch. 
 
 The idea behind this simple version is to demonstrate the power of elastic+kibana
 to perform aggregations and visualise them. One of the strong points is that, 
 if the volume of the data is "small enough", then using elastic+kibana is an excellent
-backend service for visualisation and analytics. It just requires a index and all the
-ingestion and query is hadleded effortless. No need to add partitions, pre-configure 
-aggregations, modify data, etc. This is a good approach to explore the data and to decide
-what aggreagations and visualisations to do.
+backend service for visualisation and analytics. It just requires an index and all the
+ingestion and query is handled effortlessly. No need to add partitions, pre-configure aggregations, modify data, etc. This is an excellent approach to explore the data and to decide what aggregations and visualisations to do.
 
 ## Hands-on
 A simple solution to the aggregation problem is to ingest every line directly to 
@@ -30,8 +27,8 @@ that by running
 ```bash
 $ ./push_index.sh
 ```
-The bash script deletes the index in case of existance, it creates a new one 
-and finally it pushes a new mapping accordingly to the schema defined.
+The bash script deletes the index in case of existence, it creates a new one 
+and finally, it pushes a new mapping accordingly to the schema defined.
 ```json
 {
   "acknowledged" : true
@@ -46,7 +43,7 @@ and finally it pushes a new mapping accordingly to the schema defined.
 }
 ```
 
-Finally we can push some data to elasticsearch using the app provided.
+Finally, we can push some data to elasticsearch using the app provided.
 To see details of the app cf. the README.md on the slk-ingestion folder.
 ```bash
 $ cd slk-ingestion
@@ -60,8 +57,7 @@ I simulated this solution using a small subset of 656,287 rows of
 656k rows are stored by elastic in 217 MB. (For full stats on elastic test environment cf. 
 elastic-stats.json).
 
-The following query is the count the number of HYDROCODONE sold per month during the 2006,
-and it was computed in 99ms.
+The following query is the count the number of HYDROCODONE sold per month during 2006, and it was computed in 99ms.
 ```json
 {
   "aggs": {
@@ -205,16 +201,15 @@ The respnse is:
 }
 ```
 
-The queries are similar, just modifying the parameters. I will skip the json queries and I 
-will show the graphs and response times for different queries.
+The queries are similar, just modifying the parameters. I will skip the json queries, and I will show the graphs and response times for different queries.
 
-A monthly count of Hydrocodone during the 2007.
+A monthly count of Hydrocodone during 2007.
 ![Monthy count of HYDROCODONE](images/img1.png "Kibana screenshot")
 
-A daily count of Hydrocodone during the 2007.
+A daily count of Hydrocodone during 2007.
 ![Monthy count of HYDROCODONE](images/img2.png "Kibana screenshot")
 
-A daily count of Hydrocodone between the 2006 and 2013.
+A daily count of Hydrocodone between 2006 and 2013.
 ![daily count of HYDROCODONE](images/img3.png "Kibana screenshot")
 
 A monthly count of Hydrocodone in 2006 in Brooklyn.
@@ -234,8 +229,7 @@ A monthly count of Hydrocodone in 2006 in Brooklyn.
 
 ## Limitations
 The maximum number of documents you can have in a Lucene index is 2,147,483,519. 
-In order to maxime performance, the indexes require special crafting, same as the 
-infrastructure, sharding, disks etc.
+In order to maximise performance, the indexes require individual crafting, same as the  infrastructure, sharding, disks etc.
 
 
 ## Pricing estimation on AWS
