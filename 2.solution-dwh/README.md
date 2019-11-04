@@ -46,7 +46,7 @@ Due to the nature of Pain Pills Dataset and the queries we would most likely wan
 In this particular case, if the sole use case is to compute aggregations based on drug_name and 
 transaction date, the partitioning would be `/ingestion_year/ingestion_month/ingestion_day/ingestion_hour/drug_name/`. 
 ***That partitioning allows the fast computation of aggregations by minimising the hit/access and reading only a few columns, but in real-life
-it is impractical because it does not facilitate the access of the data (e.g. it will requires a full scan to get transaction_day).*** 
+it is impractical because it does not facilitate the access of the data (e.g. it will requires a full scan to get all transactions on a particular transaction day).*** 
 
 
 ## Access to the data
