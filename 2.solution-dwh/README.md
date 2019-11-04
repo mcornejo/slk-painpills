@@ -53,9 +53,9 @@ it is impractical because it does not facilitate the access of the data (e.g. it
 To optimise time and money, the data should be stored in a binary format. This opens the possibility of partitioning, filtering and parallelism it unfortunately closes the door to create an easy API to access it. This is due to the poor support of big data formats for other platforms outside bigdata.
 
 Currently, the way to access the data is using a tool like Presto, AWS Athena, 
-Microsoft Data Lake Analytics, Google Big Query and Apache Hive. These tools allow a user to query the data using SQL syntax, which could be very convenient, especially if for the users don't know how to code a Spark job. These tools also allow arranging the data in tables for a full SQL experience. 
+Microsoft Data Lake Analytics, Google Big Query or Apache Hive. These tools allow a user to query the data using SQL syntax, which is be very convenient, especially for users that don't know how to code a big data job. These tools also allow arranging the data in tables for a full SQL experience. 
 
-Another way to access the data is by creating spark jobs and exporting the data in a user-friendly, like JSON or CSV.
+Another way to access the data is by creating jobs (like a Spark job) and exporting the data in a user-friendly format, like JSON or CSV.
 
 ## Code
 In the project PainPills, the `KaggleJob` is a Spark Job that transforms the data from the TSV to ORC
