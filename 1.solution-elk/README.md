@@ -202,8 +202,8 @@ The response for the query presented above is:
 }
 ```
 
-We tested the API by doing two more queries, which are quite similar to the previous json. 
-Below are the graphs and response times for the three different queries.
+We tested the API by doing three more queries, which are quite similar to the previous json. 
+Below are the graphs and response times for the four different queries.
 
 A monthly count of Hydrocodone during 2007.
 ![Monthy count of HYDROCODONE](images/img1.png "Kibana screenshot")
@@ -211,7 +211,7 @@ A monthly count of Hydrocodone during 2007.
 A daily count of Hydrocodone during 2007.
 ![Monthy count of HYDROCODONE](images/img2.png "Kibana screenshot")
 
-A daily count of Hydrocodone between 2006 and 2013.
+A monthly count of Hydrocodone between 2006 and 2013.
 ![daily count of HYDROCODONE](images/img3.png "Kibana screenshot")
 
 A monthly count of Hydrocodone in 2006 in Brooklyn.
@@ -224,15 +224,15 @@ A monthly count of Hydrocodone in 2006 in Brooklyn.
 | ----------- | -----------  |
 | Monthly count 2007    | 99ms        |
 | Daily count 2007  | 39ms         |
-| Daily count 2017-2013 | 128ms |
+| Monthly count 2017-2013 | 128ms |
 | Monthly count 2006 & Brooklyn | 26 ms|
-
 
 
 ## Limitations
 The maximum number of documents you can have in a Lucene index is 2,147,483,519. 
-In order to maximise performance, the indexes require individual crafting, same as the  infrastructure, sharding, disks etc.
+In order to maximise performance, the indices require individual crafting, same as do the  infrastructure, sharding, disks etc.
 
+In a real-life sceneario, kibana is not the best tool to present data visualisation to end users. But more as an internal tool to explore the data on elasticsearch. Nevertheless, the responses of elasticsearch's API are easy to plug in a more appropriate frontend.
 
 ## Pricing estimation on AWS
 Based on the pricing at the time, in EU-Ireland, a medium-size 3-node cluster
