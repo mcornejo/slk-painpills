@@ -232,12 +232,11 @@ A monthly count of Hydrocodone in 2006 in Brooklyn.
 The maximum number of documents you can have in a Lucene index is 2,147,483,519. 
 In order to maximise performance, the indices require individual crafting, same as do the  infrastructure, sharding, disks etc.
 
-In a real-life sceneario, kibana is not the best tool to present data visualisation to end users. But more as an internal tool to explore the data on elasticsearch. Nevertheless, the responses of elasticsearch's API are easy to plug in a more appropriate frontend.
+In a real-life sceneario, kibana is not the best tool to present data visualisation to end users, but more to internally explore the data on elasticsearch. Nevertheless, the responses of elasticsearch's API are easy to plug in a more appropriate frontend.
 
 ## Pricing estimation on AWS
-Based on the pricing at the time, in EU-Ireland, a medium-size 3-node cluster
+Based on aws pricing at the time, in EU-Ireland, a medium-size 3-node cluster
 costs around 340 USD per month. (m5.large.elasticsearch, 2vCPU, 8GB RAM, 0.158/hour = 
-0.158 x 24 x 30 x 3). On top of that, the disk that costs 0.149 per GB /month. (0.149 x 
-500 x 3)
+0.158 x 24 x 30 x 3). We also need to add the disk of each node that costs 0.149 per GB /month. (0.149 x 500 x 3). 
 
-eg. A 3-node cluster with 500GB of storage is around 563 USD / month.
+For example 3-node cluster with 500GB of storage is around 563 USD / month.
