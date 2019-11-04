@@ -132,10 +132,9 @@ Case 3: Aggregation drugName & buyerCity
 
 ## Visualisation of the data
 For this task, we decided to export the results of every job _(each data mart)_ directly to elasticsearch to visualise the aggregated data using kibana. 
-Aggregating the data using Spark is largely better option than feeding every single row to elasticsearch. In the folder `1.solution-elk` there is an extensive introduction to elasticsearch.
+Aggregating the data using Spark is a largely better option than feeding every single row to elasticsearch. In the folder `1.solution-elk` there is an extensive introduction to elasticsearch.
 
-Instead of inserting 5,000,000 of rows, ingesting only the aggregated data is around *300 times smaller* for the biggest data mart (for the case 2, the difference is 30,000 times smaller, just 168 rows to ingest). 
-This allows a better performance of elasticsearch, lower costs and better user experience.
+Instead of inserting 5,000,000 of rows, ingesting only the aggregated data is around *300 times smaller* for the biggest data mart (for the case 2, the difference is 30,000 times smaller or just 168 rows to ingest). Separating reponsabilities and using big data tools to carry the heavy low of the aggregations allows a better performance of elasticsearch, lower costs and better user experience.
 
 The following graphs are a sample of possible visualisations. On the top row we present some aggregations on Oxycodone and on the bottom row Hydrocodone. From left to right: Count of top 20 cities, Daily count and monthly count. In the folder kibana it is possible to find the export of the dashboard to easily import it in kibana.
 
