@@ -24,7 +24,9 @@ The _raw_ data might be in different formats, CSV, excel, JSON, TSV, binary, etc
 ## DWH Processing
 Once the data has been ingested in the infrastructure, a first job should run to put into in the data warehouse. Due to the nature of the Pain Pills Dataset, the data should be stored in a columnar format like Parquet or ORC. This allows fast search and retrieval from different sources. 
 
-Keeping a clean data warehouse is very important. By choosing a good partitioning, it can make the task of creating new data marts incredibly easy or difficult and it can facilitate the data exploration using Athena or Presto while keeping costs low.
+Keeping a clean data warehouse is very important. By choosing a good partitioning, it can make the task of creating new data marts incredibly easy or difficult this is to be discussed within the team and business/analysts/data scientists. A good partitioning can facilitate the data exploration using tools like Athena or Presto and it can
+help to find where the data has more value while keeping costs low.
+
 
 ### Data Partitioning
 The partition of the data is an important subject, and it can imply hidden costs for not partitioning correctly. For example, in a cloud-based infrastructure like AWS, S3 has a price per hit, and an EBS has a price per IO. In both cases, we want to minimise the amount of hits/data access.
@@ -41,8 +43,6 @@ the ingestion information is not needed (lost) but transaction information is im
 Due to the nature of Pain Pills Dataset and the queries we would most likely want to do on it in real-life, the best partitioning would be `/drug_name/transaction_year/transaction_month/transaction_day` discarding the information of ingestion. This allows a user to easily query the data using the drug name as a primary filter, and it permits asking for the details of the transactions per day.
 
 ### Discussion 
-The partitioning is an important topic to discuss within the team and business/analysts/data scientists 
-in order to find where the data has more value while reducing infrastructure costs. 
 
 In this particular case, if the sole use case is to compute aggregation based on drug_name and 
 transaction date, a better partitioning would be 
