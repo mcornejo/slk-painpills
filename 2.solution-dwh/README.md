@@ -50,7 +50,7 @@ it is impractical because it does not facilitate the access of the data (e.g. it
 
 
 ## Access to the data
-To optimise time and money, the data should be stored in a binary format. This opens the possibility of partitioning, filtering and parallelism while it closes the door to create an easy API to access it. This is due to the poor support of big data formats for other platforms outside bigdata.
+To optimise time and money, the data should be stored in a binary format. This opens the possibility of partitioning, filtering and parallelism it unfortunately closes the door to create an easy API to access it. This is due to the poor support of big data formats for other platforms outside bigdata.
 
 Currently, the way to access the data is using a tool like Presto, AWS Athena, 
 Microsoft Data Lake Analytics, Google Big Query and Apache Hive. These tools allow a user to query the data using SQL syntax, which could be very convenient, especially if for the users don't know how to code a Spark job. These tools also allow arranging the data in tables for a full SQL experience. 
