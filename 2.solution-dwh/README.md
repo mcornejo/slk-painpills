@@ -53,27 +53,26 @@ it is impractical because it does not facilitate the access of the data (e.g. it
 To optimise time and money, the data should be stored in a binary format. This opens the possibility of partitioning, filtering and parallelism it unfortunately closes the door to create an easy API to access it. This is due to the poor support of big data formats for other platforms outside bigdata.
 
 Currently, the way to access the data is using a tool like Presto, AWS Athena, 
-Microsoft Data Lake Analytics, Google Big Query or Apache Hive. These tools allow a user to query the data using SQL syntax, which is be very convenient, especially for users that don't know how to code a big data job. These tools also allow arranging the data in tables for a full SQL experience. 
+Microsoft Data Lake Analytics, Google Big Query or Apache Hive. These tools allow a user to query the data using SQL syntax, which is very convenient, especially for users that don't know how to code a big data job. These tools also allow arranging the data in tables for a full SQL experience. 
 
 Another way to access the data is by creating jobs (like a Spark job) and exporting the data in a user-friendly format, like JSON or CSV.
+
+
+## Data pipeline
+The concept of a data pipeline is used in data environments to describe multiple steps of data transformation. Usually, the first job is to put the data in the correct format. Then one or more jobs can run over the prepared data to produce one or more data marts. Eventually, more jobs could come after the data marts are created to, for example, join the different data marts.
+
+In this case, our pipeline has two steps. One job to store the data in the data warehouse and one job to create the three datamarts.
+
 
 ## Code
 In the project PainPills, the `KaggleJob` is a Spark Job that transforms the data from the TSV to ORC
 compressed using ZLIB. This is a particularly good strategy because ORC+ZLIB supports predicates pushdown, 
-which reduces query/processing time drastically by filtering out data before retrieving it. The details of the implementation are in the README.md in the spark-painpills folder.
+which reduces query/processing time drastically by filtering out data before retrieving it. The details of the implementation are in the README.md in the `code` folder.
 
-The file `AggregateJob` is a Spark Job that computes the aggregation from a source already partitioned. The output of this job is a data mart.
+The file `AggregateJob` is a Spark Job that computes the aggregation from a already partitioned source. The output of this job is a data mart.
 
-The Jobs are straightforward. The first job is to put the data in the data warehouse, every time that a new
-batch arrives (e.g. each 1 hour). The idea behind this job is to denormalise the raw data ingested, adding the partitions and storing it in a compressed, binary and handy format like ORC. The second job
+The Jobs are straightforward. The first job is to put the data in the data warehouse, every time that a new batch arrives (e.g. each 1 hour). The idea behind this job is to denormalise the raw data ingested, adding the partitions and storing it in a compressed, binary and handy format like ORC. The second job
 computes aggregations to be placed or sent to another service (like elasticsearch).
-
-
-## Data pipeline
-The concept of data pipeline is used in data environments to describe multiple steps of data transformation. Usually, the first job is to put the data in the correct format. Then one or more jobs can run over the new data ingested to produce one or more data marts. Eventually, more jobs could come after the data marts are created to, for example, join the different data marts.
-
-In this case, our pipeline has two steps. One job to ingest and job to create the three datamarts.
-
 
 
 ## Aggregation
