@@ -76,7 +76,7 @@ computes aggregations to be placed or sent to another service (like elasticsearc
 
 
 ## Aggregations
-We tested the dataset with three aggregations, each aggregation was computed on both partitions described earlier: one real-life partition and a second partition exclusively optimised for the three cases. As it was said in the discussion part, the optimised (not real-life) partition is way faster than the real-life partition for the aggregations we computed.
+We tested the dataset with three aggregations. Each aggregation was computed on both partitions described earlier: one real-life partition and a second partition exclusively optimised for the three cases. As it was said in the discussion part, the optimised (not real-life) partition is way faster than the real-life partition for the aggregations we computed.
 
 **Case 1**: Aggregation drugName & transactionYear & transactionMonth & transactionDay. 
 In this scenario, the output is 5103 rows in JSON format.
@@ -100,7 +100,7 @@ We simulated different partitioning using a subset of 5,000,000 rows of
 
 Before starting, we mesured the time to create the different partitions.
 
-| Partition   |  time        |
+| Partition   |  creation time        |
 | ----------- | -----------  |
 | Partition 1 | 8m3s         |
 | Partition 2 | 3m18s        |
@@ -121,7 +121,7 @@ Case 2: Aggregation drugName & transactionYear & transactionMonth
 | Partition 2 | 18s          |
 | No partition| 58s          |
 
-Aggregation drugName & buyerCity
+Case 3: Aggregation drugName & buyerCity
 
 | Aggregation case 3 |  time |
 | ----------- | -----------  |
@@ -131,7 +131,7 @@ Aggregation drugName & buyerCity
 
 
 ## Visualisation of the data
-The best option is to export the results of every job _(each data mart)_ directly to elasticsearch to visualise using kibana (or other) the aggregated data. This proposal is largely better than ingest every single row to elasticsearch. (In the folder `solution-elk` there is an extensive introduction to Elasticsearch.)
+For this task, we decided to export the results of every job _(each data mart)_ directly to elasticsearch to visualise the aggregated using kibana. This proposal is largely better than ingest every single row to elasticsearch. (In the folder `solution-elk` there is an extensive introduction to Elasticsearch.)
 
 Instead of inserting 5,000,000 of rows, ingesting only the aggregated data is around *300 times smaller* for the biggest data mart (for the case 2, the difference is 30,000 times smaller, just 168 rows to ingest). 
 This allows a better performance of elasticsearch, lower costs and better user experience.
