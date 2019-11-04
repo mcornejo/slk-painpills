@@ -75,8 +75,8 @@ The Jobs are straightforward. The first job is to put the data in the data wareh
 computes aggregations to be placed or sent to another service (like elasticsearch).
 
 
-## Aggregation
-We tested the dataset with three aggregations, and the two partitions described earlier: one real-life partition and a second partition exclusively optimised for the three cases. As it was said in the discussion part, the optimised (not real-life) partition is way faster than the real-life partition.
+## Aggregations
+We tested the dataset with three aggregations, each aggregation was computed on both partitions described earlier: one real-life partition and a second partition exclusively optimised for the three cases. As it was said in the discussion part, the optimised (not real-life) partition is way faster than the real-life partition for the aggregations we computed.
 
 **Case 1**: Aggregation drugName & transactionYear & transactionMonth & transactionDay. 
 In this scenario, the output is 5103 rows in JSON format.
@@ -97,6 +97,8 @@ We simulated different partitioning using a subset of 5,000,000 rows of
 - Partition 1: `/drug_name/transaction_year/transaction_month/transaction_day`
 - Partition 2:  `/ingestion_year/ingestion_month/ingestion_day/ingestion_hour/drug_name/`
 - No partition: The aggregation is computed directly taking the compressed file with 5,000,000 lines.
+
+Before starting, we mesured the time to create the different partitions.
 
 | Partition   |  time        |
 | ----------- | -----------  |
