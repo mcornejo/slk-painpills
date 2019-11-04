@@ -142,7 +142,6 @@ The best option is to export the results of every job _(each data mart)_ directl
 Instead of inserting 5,000,000 of rows, ingesting only the aggregated data is around *300 times smaller* for the biggest data mart (for the case 2, the difference is 30,000 times smaller, just 168 rows to ingest). 
 This allows a better performance of elasticsearch, lower costs and better user experience.
 
-The following graphs are a sample of possible visualisations. On the top row we present some aggregations on Oxycodone and on the bottom row Hydrocodone. From left to right: Count of top 20 cities, Daily count and monthly count.
-![Monthy count of ](images/img1.png "Kibana screenshot").
+The following graphs are a sample of possible visualisations. On the top row we present some aggregations on Oxycodone and on the bottom row Hydrocodone. From left to right: Count of top 20 cities, Daily count and monthly count. In the folder kibana it is possible to find the export of the dashboard to easily import it in kibana.
 
-To replicate this dashboard, the export of the dashboard is given in the folder kibana. 
+![Monthy count of ](images/img1.png "Kibana screenshot").
