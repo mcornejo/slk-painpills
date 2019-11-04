@@ -140,4 +140,4 @@ The following graphs are a sample of possible visualisations. On the top row we 
 
 ![Monthy count of ](images/img1.png "Kibana screenshot")
 
-To replicate this dashboard, first run a elasticsearch and kibana instance (like the docker-compose file in the solution-elk folder) and execute the `output_to_elastic.sh`.
+We provided the ouput of the jobs. To replicate this dashboard, first run a elasticsearch and kibana instance (like the docker-compose file in the solution-elk folder) and execute the `output_to_elastic.sh`.
