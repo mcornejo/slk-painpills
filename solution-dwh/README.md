@@ -77,8 +77,10 @@ computes aggregations to be placed or sent to another service (like elasticsearc
 
 
 ## Data pipeline
-The concept of data pipeline is used in data environments to describe multiple steps 
-every output of spark could be seen as a data mart. aggregated data done in a time frame
+The concept of data pipeline is used in data environments to describe multiple steps of data transformation. Usually, the first job is to put the data in the correct format. Then one or more jobs can run over the new data ingested to produce one or more data marts. Eventually, more jobs could come after the data marts are created to, for example, join the different data marts.
+
+In this case, our pipeline has two steps. One job to ingest and job to create the three datamarts.
+
 
 
 ## Aggregation
