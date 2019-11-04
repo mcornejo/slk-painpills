@@ -12,5 +12,10 @@ The project uses SBT as build tool. To compile the code:
 $ sbt compile
 ```
 
+To execute the code:
+```bash
+$ sbt run
+```
+
 In the package `com.murdix.painpills` there are all the code. In `jobs` there are the two Objects with Main. 
 In `parser` there is an utility to parse the files and finally in `entities` there is the PainPills class definition. 

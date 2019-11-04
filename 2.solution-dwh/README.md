@@ -69,7 +69,7 @@ In the project PainPills, the `KaggleJob` is a Spark Job that transforms the dat
 compressed using ZLIB. This is a particularly good strategy because ORC+ZLIB supports predicates pushdown, 
 which reduces query/processing time drastically by filtering out data before retrieving it. The details of the implementation are in the README.md in the spark-painpills folder.
 
-The file `AggregateJob` is a Spark Job that computes the aggregation from a source already partitioned.
+The file `AggregateJob` is a Spark Job that computes the aggregation from a source already partitioned. The output of this job is a data mart.
 
 The Jobs are straightforward. The first job is to put the data in the data warehouse, every time that a new
 batch arrives (e.g. each 1 hour). The idea behind this job is to denormalise the raw data ingested, adding the partitions and storing it in a compressed, binary and handy format like ORC. The second job
