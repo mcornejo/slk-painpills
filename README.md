@@ -9,6 +9,8 @@ A second approach is presented by implementing a data warehouse, with data pipel
 There are three folders as follows:
 - pre-processing: This folder contains some utils to handle the Dataset.
 - solution-elk: Contains a elasticsearch-only solution to handle the aggregations and visualizations.
+- solution-elk/slk-ingestion: Contains the code to ingest the data from the TSV to elasticsearch
 - solution-dwh: Contains the solution to handling a big data architecture using big-data tools.
+- solution-dwh/PainPills: Contains the code of two spark jobs, one of creation of the data warehouse and aggregation.
 
 Each folder contains its own README, with its explanation. Every code folder also contains its README related exclusively to the code.
