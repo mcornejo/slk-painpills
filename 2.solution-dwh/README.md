@@ -1,10 +1,9 @@
 # BigData Solution
 
 ## Creating the Datawarehouse (DWH)
-A different approach for the [Kaggle Pain Pills Dataset](https://www.kaggle.com/paultimothymooney/pain-pills-in-the-usa/version/2) is to define a data warehouse infrastructure to ingest, process, 
-aggregation and visualisation of the data.
+A different approach for the [Kaggle Pain Pills Dataset](https://www.kaggle.com/paultimothymooney/pain-pills-in-the-usa/version/2) is to define a data warehouse infrastructure to ingest, process, aggregate and visualise the data.
 
-To get started, we will give some general intuition about each step of the processing, then the best solution to the Pain Pills dataset.
+We will first give some general intuition about each step of the processing, to then decide on the best solution to aggregate data from the Pain Pills dataset.
 
 ## Ingestion
 For the ingestion, there are different strategies depending on the nature of the data. Some examples 
@@ -12,37 +11,34 @@ are:
 - Fetch the data from an FTP/SSH server each X minutes.
 - Serve an HTTP endpoint to receive HTTP requests with the data.
 - Dumping a database every day.
-- Pooling records from Kafka (or similar queue).
+- Pooling records from Kafka (or a similar queue).
 
 For the Pain Pills dataset, we download the file directly from Kaggle's site. The gzipped file is 6GB 
-containing 2,147,483,519 records. To make it easier to manipulate, we pre-processing (cf. pre-processing 
+containing 2,147,483,519 records. To make it easier to manipulate, we pre-processed (cf. `0.pre-processing` 
 folder) it by splitting the file into multiple files of 5,000,000 records each and uploading them into S3.
 
-_We will assume that each one of these small files is an hour of ingestion and it is already in our infrastructure stored in an S3 bucket. Also, we assume that this data is _raw_, i.e. it is the data 
-extracted from the source without any processing from our side._
+_We will assume that each one of these small files is an hour of ingestion and it is already in our infrastructure stored in an S3 bucket. Also, we assume that this data is _raw_, i.e. it is the data extracted from the source without any processing from our side._
 
-The _raw_ data might be in different formats, CSV, excel, JSON, TSV, binary, etc. The ingestion is completed once the data _in original format_ is stored in the infrastructure.
+The _raw_ data might be in different formats, CSV, excel, JSON, TSV, binary, etc. The ingestion is completed once the data _in original format_ is stored in the infrastructure. In our case, the ingestion part is simulated in the pre-processing step.
 
 ## DWH Processing
-Once the data has been ingested in the infrastructure, a first job should run to put it in the data warehouse. Due to the nature of the Pain Pills Dataset, the data should be stored in a columnar format like Parquet or ORC. This allows fast search and retrieval from different sources. 
+Once the data has been ingested in the infrastructure, a first job should run to put into in the data warehouse. Due to the nature of the Pain Pills Dataset, the data should be stored in a columnar format like Parquet or ORC. This allows fast search and retrieval from different sources. 
 
-Keeping a clean data warehouse is very important. By choosing a good partitioning, it makes the task of creating new data marts incredibly easy or difficult and it can facilitate the exploration using Athena 
-or Presto while keeping costs low.
+Keeping a clean data warehouse is very important. By choosing a good partitioning, it can make the task of creating new data marts incredibly easy or difficult and it can facilitate the data exploration using Athena or Presto while keeping costs low.
 
 ### Data Partitioning
-The partition of the data is an important subject, and it can imply hidden costs for not partitioning correctly. For example, in a cloud-based infrastructure like AWS, S3 has a price per hit, and an EBS has a price per IO. In both cases, we want to minimise the amount of hit/data access.
+The partition of the data is an important subject, and it can imply hidden costs for not partitioning correctly. For example, in a cloud-based infrastructure like AWS, S3 has a price per hit, and an EBS has a price per IO. In both cases, we want to minimise the amount of hits/data access.
 
 In order to preserve (or not) the information of the acquisition time, there are different ways to 
-partition the data, depending on the usage of the data, for example, we can mention:
+partition the data, depending on the usage. For example, we can consider:
 
 - `/ingestion_year/ingestion_month/ingestion_day/ingestion_hour/drug_name/`: This partition is useful 
-if we want to access to the data depending on the hour, it was ingested to the data warehouse.
-- `/ingestion_year/ingestion_month/ingestion_day/ingestion_hour/drug_name/transaction_year/transaction_month/transaction_day`: This partitioning is useful if we want to access directly to the 
-transaction day per every ingested hour.
+if we want to access the data depending on the hour it was ingested to the data warehouse.
+- `/ingestion_year/ingestion_month/ingestion_day/ingestion_hour/drug_name/transaction_year/transaction_month/transaction_day`: This partitioning is useful if we want to directly access the transaction day of every ingested hour.
 - `/drug_name/transaction_year/transaction_month/transaction_day`: Useful for high-intense access where
-the ingestion information is not needed (lost), and transaction information is important.
+the ingestion information is not needed (lost) but transaction information is important.
 
-Due to the nature of Pain Pills Dataset and the queries we want to do on it, the best partitioning is to keep `/drug_name/transaction_year/transaction_month/transaction_day` as transaction while discarding the information of ingestion. This allows a user to easily query the data using the drug name as a primary filter, and it allows to ask for the detail of the transactions per day.
+Due to the nature of Pain Pills Dataset and the queries we would most likely want to do on it, the best partitioning is to keep would be `/drug_name/transaction_year/transaction_month/transaction_day`  and discarding the information of ingestion. This allows a user to easily query the data using the drug name as a primary filter, and it permits asking for the details of the transactions per day.
 
 ### Discussion 
 The partitioning is an important topic to discuss within the team and business/analysts/data scientists 
